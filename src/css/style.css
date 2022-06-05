@@ -1,0 +1,87 @@
+
+#page{
+  display: grid;
+  grid-template-areas: " buttons buttons buttons"
+                      "colorAndTitle tr-ligth input ";
+}
+
+.border {
+  border: 2px solid #646464;
+  border-radius: 4px;
+  background: #ccc;
+}
+.input{
+  grid-area: input;
+  margin-left: 60%;
+  padding-top: 5%;
+  margin-top: 10%;
+
+}
+.colorAndTitle{
+  grid-area: colorAndTitle;
+}
+
+#traffic-light {
+  grid-area: tr-ligth;
+  border: 20px solid CornflowerBlue;
+  border-width: 10px;
+  border-style: solid;
+  border-color: black;
+  background-color: gray;
+  width: 70px;
+  height: auto;
+  padding: 15px;
+  margin-left: 50%;
+}
+
+.light {
+  border: 2px solid CornflowerBlue;
+  display: inline-block;
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 8px;
+  opacity: 0.2;
+  transition: opacity 0.2s
+}
+
+.active {
+  opacity: 1;
+}
+
+.linz {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background: black;
+  margin: auto;
+  padding: 10px;
+
+}
+
+.buttons {
+  margin: auto;
+  padding: 100px;
+
+}
+
+#start {
+  border-radius: 8px;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+
+#stop {
+  border-radius: 8px;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+#root{
+  border: solid;
+  width: 30%;
+  margin-left: 30%;
+}
