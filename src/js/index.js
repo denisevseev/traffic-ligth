@@ -10,6 +10,7 @@ class initial {
         this.linzAll = document.querySelectorAll('.linz')
         this.count = 0
         this.linzCount = 0
+        this.flag = true
         this.checkLinzInLocalStorage()
         this.stopTraffic()
         this.start.addEventListener('click', () => {
@@ -38,7 +39,6 @@ class initial {
         this.linz = document.querySelector('.linz')
         linz.addEventListener('click', (e) => {
             e.target.style.backgroundColor = this.colorPalette.value
-            this.linzColorArrPush()
         })
     }
 
@@ -48,16 +48,15 @@ class initial {
         let linz = document.querySelectorAll('.linz')
             let input = document.querySelectorAll('.input')
                 for (let i = 0; i < linz.length; i++) {
-                    arr.push({
-                        color: linz[i].style.backgroundColor,
-                        timeFromInput: input[i].value * 1000
-                    })
+                        arr.push({
+                            color: linz[i].style.backgroundColor,
+                            timeFromInput: input[i].value * 1000
+                        })                    
 
                 }
                 
                 localStorage.setItem('arr', JSON.stringify(arr))
-        
-        
+                this.checkLocalStorag()
                
 
     }
@@ -65,44 +64,34 @@ class initial {
 
     checkLocalStorag() {
             let arr = JSON.parse(localStorage.getItem('arr'));
+            if(!arr) this.linzColorArrPush()
             let linzAll = document.querySelectorAll('.linz')
             let timer = Number(arr[this.count].timeFromInput)
             linzAll[this.count].style.backgroundColor = arr[this.count].color; 
-                        let date  = Number(new Date()) 
-                       let flag  = true
+                    let date  = Number(new Date()) 
+                       
                         linzAll[this.count].addEventListener('mouseenter', (e)=>{
-                            console.log(e.target.mouseenter)
-                            if (flag ==true) {
-                                // e.stopPropagation()
+                            if (this.flag ==true) {
                                 console.log('mouseenter')
                                 let newValueDate  = date - Number(new Date())
-                                arr[this.count].timeFromInput = arr[this.count].timeFromInput +newValueDate
-                                localStorage.removeItem('arr')
-                                localStorage.removeItem('this.count')
-                                localStorage.setItem('this.count', JSON.stringify(this.count))
-                                localStorage.setItem('arr', JSON.stringify(arr))
-                                flag = false
-                                clearInterval(interval)    
+                                this.flag = false
+                                clearInterval(interval)   
+                                this.addDataLocalStorage(newValueDate, arr ) 
                                 
                             }
                                             
-                            
                         })
                         linzAll[this.count].addEventListener('mouseleave', (e)=>{
-                            
-                            if (flag == false){
-                                // e.stopPropagation()
+                            if (this.flag == false){
                                 console.log('mouseleave')
-                                flag = true
+                                this.flag = true
                                   this.start.click()
-                                 
                                 
                             }
                         })
                           
                         let interval = setInterval(()=>{
 
-                            
                             if (this.count>=arr.length) clearInterval(interval)
                             let newValueDate  = date - Number(new Date()) 
                            
@@ -114,27 +103,23 @@ class initial {
                                 this.checkArrInlocalLength(this.count, arr)
                             }
 
-
                             window.onbeforeunload = (()=>{
-                                arr[this.count].timeFromInput = arr[this.count].timeFromInput +newValueDate
-                                localStorage.removeItem('arr')
-                                localStorage.removeItem('this.count')
-                                localStorage.setItem('this.count', JSON.stringify(this.count))
-                                localStorage.setItem('arr', JSON.stringify(arr))
-                                this.checkArrInlocalLength(this.count)
-                        
+                                this.addDataLocalStorage(newValueDate, arr )
+                               
                             })
 
-                          
-                        
-                           
                         },0)
-
 
            
     }
    
- 
+ addDataLocalStorage(newValueDate, arr ){
+    arr[this.count].timeFromInput = arr[this.count].timeFromInput +newValueDate
+    localStorage.removeItem('arr')
+    localStorage.removeItem('this.count')
+    localStorage.setItem('this.count', JSON.stringify(this.count))
+    localStorage.setItem('arr', JSON.stringify(arr))
+ }
  
     
 
@@ -165,7 +150,6 @@ class initial {
         
     }
     
-
 
 }
 
