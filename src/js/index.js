@@ -10,7 +10,6 @@ class initial {
         this.linzAll = document.querySelectorAll('.linz')
         this.count = 0
         this.linzCount = 0
-        this.flag = true
         this.checkLinzInLocalStorage()
         this.stopTraffic()
         this.start.addEventListener('click', () => {
@@ -69,22 +68,23 @@ class initial {
             let timer = Number(arr[this.count].timeFromInput)
             linzAll[this.count].style.backgroundColor = arr[this.count].color; 
                     let date  = Number(new Date()) 
-                       
+                       let flag  = true
                         linzAll[this.count].addEventListener('mouseenter', (e)=>{
-                            if (this.flag ==true) {
+                            if (flag ==true) {
                                 console.log('mouseenter')
                                 let newValueDate  = date - Number(new Date())
-                                this.flag = false
-                                clearInterval(interval)   
-                                this.addDataLocalStorage(newValueDate, arr ) 
+                                flag = false
+                                clearInterval(interval)  
+                                this.addDataLocalStorage(newValueDate, arr )
+                                  
                                 
                             }
                                             
                         })
                         linzAll[this.count].addEventListener('mouseleave', (e)=>{
-                            if (this.flag == false){
+                            if (flag == false){
                                 console.log('mouseleave')
-                                this.flag = true
+                                flag = true
                                   this.start.click()
                                 
                             }
