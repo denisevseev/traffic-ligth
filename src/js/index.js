@@ -10,11 +10,17 @@ class initial {
         this.linzAll = document.querySelectorAll('.linz')
         this.count = 0
         this.flag = true
+        this.flagStart = true
         this.linzCount = 0
         this.checkLinzInLocalStorage()
         this.stopTraffic()
         this.start.addEventListener('click', () => {
-            this.checkLocalStorag()
+            if(this.flagStart==true){
+                this.flagStart = false
+                this.checkLocalStorag()
+                
+            }
+           
         })
     }
   
@@ -60,6 +66,7 @@ class initial {
                
 
     }
+
     // при нажатии  кнопки старт запускаем интервал с перемигиванием светофора
 
     checkLocalStorag() {
@@ -76,7 +83,6 @@ class initial {
                                 this.flag = false
                                 clearInterval(interval)  
                                 this.addDataLocalStorage(newValueDate, arr )
-                                  
                                 
                             }
                                             
@@ -141,6 +147,7 @@ class initial {
             arr.forEach(()=>this.createLinz())
         }
     }
+    //останавливаем перемигивание и удаляем линзы
     stopTraffic(){
         this.stop.addEventListener('click', ()=>{
             localStorage.removeItem('arr')
